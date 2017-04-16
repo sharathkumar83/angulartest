@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div ng-controller="EventController">
+        <div class="row">
+            <h2>Event: {{event.Name | uppercase}}</h2>
+        </div>
+        <div class="row">
+            {{event.Date}}</br>
+            {{event.Location.Address}}
+            {{event.Location.Postcode}}
+        </div>
+        <hr />
+        <h3>Sessions</h3>
+        Order by:
+        <select ng-model="sortorder" class="input-smsll">
+            <option selected value="name">Name</option>
+            <option value="-upVoteCount">Votes</option>
+        </select>
+        <select ng-model="query" class="input-smsll">
+            <option selected value="">All</option>
+            <option value="beginer">Beginer</option>
+            <option value="inter">Intermediate</option>
+            <option value="expert">Expert</option>
+        </select>
+
+        <ul>
+            <li ng-repeat="session in event.Sessions | orderBy:sortorder | filter:query" ng-class-odd="myClass">
+                <div>
+                    <div>Vote Count: {{session.UpVoteCount}}</div>
+                    <div class="votingButton" ng-click="upVoteSession(session)">
+                        <span>Up Vote</span>
+                    </div>
+                    <div class="votingButton" ng-click="downVoteSession(session)">
+                        <span>Down Vote</span>
+                    </div>
+                </div>
+                <div>Session Name: {{session.Name}}</div>
+                <div>Duration: {{session.Duration}}</div>
+                <div>Level: {{session.Level}}</div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="container">
+    <h2>Duration Filter Test</h2>
+    <div ng-controller="FilterSampleController">
+        <div>Duration 1: {{data.duration1}}</div>
+        <div>Duration 2: {{data.duration2}}</div>
+        <div>Duration 3: {{data.duration3}}</div>
+    </div>
+</div>
+
+
